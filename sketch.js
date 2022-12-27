@@ -9,6 +9,7 @@ var bangSmall;
 var bangMedium;
 var bangLarge;
 var whichBeat = 1;
+var beatpace = 70;
 
 
 
@@ -36,8 +37,10 @@ function setup() {
 function draw() {
   background(0);
 
-
-  if (frameCount % 70 == 0) {
+  if (asteroids.length < 5) {
+    beatpace = 30;
+  }
+  if (frameCount % beatpace == 0) {
     if (whichBeat == 2) {
       beat1Sound.play();
       whichBeat = 1

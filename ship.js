@@ -31,10 +31,6 @@ function Ship() {
       if (!thrustSound.isPlaying()){
         thrustSound.play();
       }
-  
-      
-      
-      
     }
 
 
@@ -60,6 +56,13 @@ function Ship() {
             
             translate(this.pos.x, this.pos.y);
             rotate(this.heading + PI/2);
+
+            
+            if (this.isBoosting) {
+                ellipse(0, this.r, this.r/2, this.r*2);
+                // ellipse(-this.r/5, this.r, this.r/2, this.r*2);
+                // ellipse(this.r/5, this.r, this.r/2, this.r*2);
+            }
             triangle(-this.r/2, this.r, this.r/2, this.r, 0, -this.r)
             pop();
         }
