@@ -17,7 +17,7 @@ function Ship() {
         this.boost();
       }
       this.pos.add(this.vel);
-      this.vel.mult(0.97);
+      this.vel.mult(0.95);
     }
   
     this.boost = function() {
@@ -35,7 +35,7 @@ function Ship() {
   
     this.render = function() {  
       push();
-      noFill();
+      fill(0);
       stroke(255);
      
       translate(this.pos.x, this.pos.y);
