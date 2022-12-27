@@ -5,11 +5,12 @@ Mostly a copy of the Asteroids game done on CodingTrain (https://www.youtube.com
 Things that I changed
 -The shape of the ship. Dumb but better
 -Added sounds. This is a big improvement.
+-Flame on thrust
+-Speed up background beat when fewer asteroids
 
 
 
 What I still want to do:
--Speed up background beat when fewer asteroids
 -Add the flying saucer
 -GAME OVER message
 -Ability to restart the game
