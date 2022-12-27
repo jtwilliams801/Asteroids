@@ -1,6 +1,12 @@
 var ship;
+var thrustSound;
+let playMode = 'sustain';
 
 
+function preload() {
+  thrustSound = loadSound('sounds/thrust.wav');
+  thrustSound.playMode(playMode);
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -43,6 +49,7 @@ function Ship() {
 
   this.boosting = function(b) {
     this.isBoosting = b;
+
   }
 
 
@@ -51,12 +58,20 @@ function Ship() {
       this.boost();
     }
     this.pos.add(this.vel);
-    this.vel.mult(0.95);
+    this.vel.mult(0.97);
   }
 
   this.boost = function() {
     var force = p5.Vector.fromAngle(this.heading);
     this.vel.add(force);
+
+    if (!thrustSound.isPlaying()){
+      thrustSound.play();
+    }
+
+    
+    
+    
   }
 
   this.render = function() {  
