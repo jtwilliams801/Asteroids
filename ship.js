@@ -5,6 +5,8 @@ function Ship() {
     this.rotation = 0;
     this.vel = createVector(0,0);
     this.isBoosting = false;
+    this.stillAlive = true;
+    this.deadPlayed = false;
   
     this.boosting = function(b) {
       this.isBoosting = b;
@@ -13,11 +15,13 @@ function Ship() {
   
   
     this.update = function() {
-      if (this.isBoosting) {
-        this.boost();
-      }
-      this.pos.add(this.vel);
-      this.vel.mult(0.95);
+
+        if (this.isBoosting) {
+            this.boost();
+        }
+        this.pos.add(this.vel);
+        this.vel.mult(0.95);
+
     }
   
     this.boost = function() {
@@ -32,16 +36,34 @@ function Ship() {
       
       
     }
+
+
+    this.dead = function() {
+        this.stillAlive = false;
+        
+        if (!this.deadPlayed){
+            bangLarge.play();
+            this.deadPlayed = true;
+        }
+        
+    }
+
+
   
-    this.render = function() {  
-      push();
-      fill(0);
-      stroke(255);
-     
-      translate(this.pos.x, this.pos.y);
-      rotate(this.heading + PI/2);
-      triangle(-this.r/2, this.r, this.r/2, this.r, 0, -this.r)
-      pop();
+    this.render = function() {   
+        if (this.stillAlive) {
+        
+            push();
+            
+            fill(0);
+            stroke(255);
+            
+            translate(this.pos.x, this.pos.y);
+            rotate(this.heading + PI/2);
+            triangle(-this.r/2, this.r, this.r/2, this.r, 0, -this.r)
+            pop();
+        }
+
     }
   
     this.edges = function() {
@@ -66,7 +88,14 @@ function Ship() {
       this.heading += this.rotation;
     }
   
-  
+    this.hits = function(asteroid) {
+        var d = dist(this.pos.x, this.pos.y, asteroid.pos.x, asteroid.pos.y);
+        if (d < this.r + asteroid.r - 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
   
   }
   

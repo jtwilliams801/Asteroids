@@ -1,7 +1,21 @@
-function Asteroid() {
-    this.pos = createVector(random(width), random(height))
+function Asteroid(pos, r) {
+    if (pos) {
+        this.pos = pos.copy();
+    }
+    else {
+        this.pos = createVector(random(width), random(height))
+    }
+
+
+    if (r) {
+        this.r = r * 0.5
+    }
+    else {
+        this.r = random(10,50);
+    }
+
     this.vel = p5.Vector.random2D();
-    this.r = random(10,50);
+    
     this.total = floor(random(5,15));
     this.offset = [];
 
@@ -46,5 +60,13 @@ function Asteroid() {
         } else if (this.pos.y < -this.r) {
           this.pos.y = height + this.r;
         }
+      }
+
+      this.breakup = function() {
+        var newA = [];
+        newA[0] = new Asteroid(this.pos, this.r);
+        newA[1] = new Asteroid(this.pos, this.r);
+        return newA;
+
       }
 }
