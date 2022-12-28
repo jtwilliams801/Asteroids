@@ -7,6 +7,7 @@ Things that I changed
 -Added sounds. This is a big improvement.
 -Flame on thrust
 -Speed up background beat when fewer asteroids
+-Backwards thrust. Don't know if I like this
 
 
 

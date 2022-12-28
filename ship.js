@@ -5,12 +5,18 @@ function Ship() {
     this.rotation = 0;
     this.vel = createVector(0,0);
     this.isBoosting = false;
+    this.boostdir = 0;
     this.stillAlive = true;
     this.deadPlayed = false;
   
-    this.boosting = function(b) {
+    this.boosting = function(b, bdir) {
+      console.log(bdir);
       this.isBoosting = b;
-  
+      if (bdir == false) {
+        this.boostdir = PI;
+      } else {
+        this.boostdir = 0;
+      }
     }
   
   
@@ -25,7 +31,8 @@ function Ship() {
     }
   
     this.boost = function() {
-      var force = p5.Vector.fromAngle(this.heading);
+        var force = p5.Vector.fromAngle(this.heading + this.boostdir);
+      
       this.vel.add(force);
   
       if (!thrustSound.isPlaying()){
@@ -36,12 +43,21 @@ function Ship() {
 
     this.dead = function() {
         this.stillAlive = false;
-        
+
         if (!this.deadPlayed){
             bangLarge.play();
             this.deadPlayed = true;
         }
+
+
+        fill(0);
+        stroke(255); 
+        for(i = 0; i < 10; i++) {
+          circle(ship.pos.x, ship.pos.y, random(10, 50));
+        }
         
+
+
     }
 
 
@@ -52,21 +68,22 @@ function Ship() {
             push();
             
             fill(0);
-            stroke(255);
-            
+            stroke(255);            
             translate(this.pos.x, this.pos.y);
             rotate(this.heading + PI/2);
-
             
-            if (this.isBoosting) {
+            if (this.isBoosting && this.boostdir == 0) {
                 ellipse(0, this.r, this.r/2, this.r*2);
                 // ellipse(-this.r/5, this.r, this.r/2, this.r*2);
                 // ellipse(this.r/5, this.r, this.r/2, this.r*2);
+            } else if (this.isBoosting && this.boostdir == PI) {
+              ellipse(0, 0, this.r);
             }
+
             triangle(-this.r/2, this.r, this.r/2, this.r, 0, -this.r)
+
             pop();
         }
-
     }
   
     this.edges = function() {

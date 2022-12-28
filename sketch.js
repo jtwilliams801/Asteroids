@@ -37,6 +37,7 @@ function setup() {
 function draw() {
   background(0);
 
+
   if (asteroids.length < 5) {
     beatpace = 30;
   }
@@ -57,6 +58,7 @@ function draw() {
     if (ship.hits(asteroids[i])) {
       ship.dead();
       
+
       // break;
       
     }
@@ -118,7 +120,7 @@ function draw() {
 
 function keyReleased() {
   
-  if (keyCode == UP_ARROW) {
+  if (keyCode == UP_ARROW || keyCode == DOWN_ARROW) {
     ship.boosting(false);
   } else if(keyCode == LEFT_ARROW) {
     ship.setRotation(0);
@@ -134,11 +136,15 @@ function keyPressed() {
     } else if (keyCode == LEFT_ARROW) {
       ship.setRotation(-0.1);
     } else if (keyCode == UP_ARROW) {
-      ship.boosting(true);
-    } else if (keyCode = 32) {
+      ship.boosting(true, true);
+    } else if (keyCode == 32) {
       lasers.push(new Laser(ship.pos, ship.heading));
+      // lasers.push(new Laser(ship.pos, ship.heading + .1));
+      // lasers.push(new Laser(ship.pos, ship.heading - .1));
+    } else if (keyCode == DOWN_ARROW) {
+        ship.boosting(true, false);
+      }
     }
   }
 
-}
 
